@@ -12,8 +12,23 @@ var PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+var tables = [];
+var waitlist = [];
+
+// Routes
 
 
+app.get("/", function(req, res) {
+    res.sendFile(path.join(__dirname, "home.html"));
+});
+
+app.get("/tables", function(req, res) {
+    res.sendFile(path.join(__dirname, "tables.html"));
+});
+
+app.get("/reserve", function(req, res) {
+    res.sendFile(path.join(__dirname, "reserve.html"));
+});
 
 //Starts server
 app.listen(PORT, function() {
