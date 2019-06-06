@@ -22,47 +22,127 @@
             </div>
         </div>
         <div class="row">
-            <a href="#">Tables API Route</a>|
-            <a href="#">Waitlist API Route</a>
-        </div>
-        <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Current Reservations</div>
-                    <div id="current-reservations" class="card-body">
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <h2>Table 1</h2>
-                                <hr>
-                                <p>ID: idguy25</p>
-                                <p>Name: Guy Twenty</p>
-                                <p>Email: guy20@five.com</p>
-                                <p>Phone: 489-123-2005</p>
-                            </li>
-                        </ul>
+                    <div class="card-body">
+                        <ul id="current-reservations" class="list-group"></ul>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-header">Wait List</div>
-                    <div id="current-reservations" class="card-body">
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <h2>Table 1</h2>
-                                <hr>
-                                <p>ID: idguy25</p>
-                                <p>Name: Guy Twenty</p>
-                                <p>Email: guy20@five.com</p>
-                                <p>Phone: 489-123-2005</p>
-                            </li>
-                        </ul>
+                    <div class="card-body">
+                        <ul id="current-waitlist" class="list-group"></ul>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <a href="/api/tables">Tables API Route</a>|
+            <a href="/api/waitlist">Waitlist API Route</a>
+        </div>
     </div>
     
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        $.get("/api/tables", function(data) {
+            console.log(data);
+            if (data) {
+                var name = data.name;
+                var phone = data.phone;
+                var email = data.email;
+                var id = data.id;
+
+                $.each(data, function(i, table){
+                    var newTable = $("<li>");
+                    newTable.addClass("list-group-item");
+
+                    var tableHead = $("<h2>");
+                    tableHead.text("Table " + (i+1));
+
+                    var tableRow = $("<hr>");
+
+                    var pName = $("<p>");
+                    pName.text("Name: " + table.name);
+                    
+                    
+                    var pPhone = $("<p>");
+                    pPhone.text("Phone: " + table.phone);
+                    
+                    var pEmail = $("<p>");
+                    pEmail.text("Email: " + table.email);
+                    
+                    var pCustId = $("<p>");
+                    pCustId.text("Customer ID: " + table.id);
+                    
+                    newTable.append(tableHead);
+                    newTable.append(tableRow);
+                    newTable.append(pName);
+                    newTable.append(pPhone);
+                    newTable.append(pEmail);
+                    newTable.append(pCustId);
+                    
+                    $("#current-reservations").append(newTable);
+
+                    console.log(newTable[0]);
+                });
+                // console.log(data);
+            }
+            else {
+                alert("No tables found.");
+            }
+        });
+
+        $.get("/api/waitlist", function(data) {
+            console.log(data);
+            if (data) {
+                var name = data.name;
+                var phone = data.phone;
+                var email = data.email;
+                var id = data.id;
+
+                $.each(data, function(i, table){
+                    var newTable = $("<li>");
+                    newTable.addClass("list-group-item");
+
+                    var tableHead = $("<h2>");
+                    tableHead.text("Table " + (i+1));
+
+                    var tableRow = $("<hr>");
+
+                    var pName = $("<p>");
+                    pName.text("Name: " + table.name);
+                    
+                    
+                    var pPhone = $("<p>");
+                    pPhone.text("Phone: " + table.phone);
+                    
+                    var pEmail = $("<p>");
+                    pEmail.text("Email: " + table.email);
+                    
+                    var pCustId = $("<p>");
+                    pCustId.text("Customer ID: " + table.id);
+                    
+                    newTable.append(tableHead);
+                    newTable.append(tableRow);
+                    newTable.append(pName);
+                    newTable.append(pPhone);
+                    newTable.append(pEmail);
+                    newTable.append(pCustId);
+                    
+                    $("#current-waitlist").append(newTable);
+
+                    console.log(newTable[0]);
+                });
+                // console.log(data);
+            }
+            else {
+                alert("No tables found.");
+            }
+        });
+    </script>
 </body>
 </html>

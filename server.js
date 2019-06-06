@@ -30,6 +30,15 @@ app.get("/reserve", function(req, res) {
     res.sendFile(path.join(__dirname, "reserve.html"));
 });
 
+// Displays all tables
+app.get("/api/tables", function(req, res) {
+    return res.json(tables);
+});
+
+app.get("/api/waitlist", function(req, res) {
+    return res.json(waitlist);
+});
+
 //Post to create new table - takes in JSON input
 app.post("/api/tables", function(req, res) {
     // req.body hosts is equal to the JSON post sent from the user
