@@ -30,6 +30,24 @@ app.get("/reserve", function(req, res) {
     res.sendFile(path.join(__dirname, "reserve.html"));
 });
 
+//Post to create new table - takes in JSON input
+app.post("/api/tables", function(req, res) {
+    // req.body hosts is equal to the JSON post sent from the user
+    // This works because of our body parsing middleware
+    var newTable = req.body;
+  
+    console.log(newTable);
+  
+    if(tables.length < 5){
+        tables.push(newTable);
+    } else{
+        waitlist.push(newTable);
+    }
+  
+    // We then display the JSON to the users
+    res.json(newTable);
+  });
+
 //Starts server
 app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
